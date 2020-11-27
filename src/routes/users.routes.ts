@@ -9,13 +9,20 @@ const usersRouter = Router();
  *  Services
  */
 
+// fiz pra sair o erro do typescript no delete user.password
+interface Request {
+  name: string;
+  email: string;
+  password?: string;
+}
+
 usersRouter.post('/', async (request, response) => {
   try {
     const { name, email, password } = request.body;
 
     const createUser = new CreateUserService();
 
-    const user = await createUser.execute({
+    const user: Request = await createUser.execute({
       name,
       email,
       password,
